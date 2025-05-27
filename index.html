@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TraceNet | OSINT for Missing Persons & Human Rights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a192f 0%, #172a45 50%, #1a365d 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #1a365d;
+            transition: width .3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .animated-underline {
+            position: relative;
+        }
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #1a365d;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        .animated-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #0a192f;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #0a192f 0%, #1a365d 100%);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .logo-text:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .silhouette {
+            fill: #0a192f;
+            transition: all 0.3s ease;
+        }
+        .logo-container:hover .silhouette {
+            fill: #1a365d;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center space-x-2 logo-container">
+                        <svg class="h-8 w-8 silhouette" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12,4C9.79,4,8,5.79,8,8c0,2.21,1.79,4,4,4s4-1.79,4-4C16,5.79,14.21,4,12,4z M12,14c-4.42,0-8,1.79-8,4v2h16v-2C20,15.79,16.42,14,12,14z"/>
+                        </svg>
+                        <span class="logo-text text-2xl">TRACENET</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#about" class="nav-link px-3 py-2 text-sm font-medium text-gray-900">About</a>
+                    <a href="#mission" class="nav-link px-3 py-2 text-sm font-medium text-gray-900">Mission</a>
+                    <a href="#team" class="nav-link px-3 py-2 text-sm font-medium text-gray-900">Team</a>
+                    <a href="#volunteer" class="nav-link px-3 py-2 text-sm font-medium text-gray-900">Volunteer</a>
+                    <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium text-gray-900">Contact</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-800">About</a>
+                <a href="#mission" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-800">Mission</a>
+                <a href="#team" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-800">Team</a>
+                <a href="#volunteer" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-800">Volunteer</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-900 hover:text-gray-800">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                <span class="block">Digital Investigations</span>
+                <span class="block text-blue-200">For Humanitarian Causes</span>
+            </h1>
+            <p class="mt-3 max-w-md mx-auto text-base text-blue-100 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                TraceNet is a nonprofit OSINT initiative using publicly available digital information to help find missing persons and support human rights investigations.
+            </p>
+            <div class="mt-10 flex justify-center space-x-4">
+                <a href="#volunteer" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-gray-900 bg-white hover:bg-gray-50 transition duration-150 ease-in-out">
+                    Join Our Team
+                </a>
+                <a href="#mission" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-900 hover:bg-gray-800 transition duration-150 ease-in-out">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="py-16 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+                <div class="relative lg:max-w-lg lg:mx-auto">
+                    <div class="relative rounded-lg shadow-lg overflow-hidden">
+                        <img class="w-full h-auto" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Digital investigation">
+                        <div class="absolute inset-0 bg-gray-900 opacity-20"></div>
+                    </div>
+                    <div class="mt-6 relative rounded-lg shadow-lg overflow-hidden">
+                        <img class="w-full h-auto" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Team collaboration">
+                        <div class="absolute inset-0 bg-gray-900 opacity-20"></div>
+                    </div>
+                </div>
+                <div class="mt-12 lg:mt-0">
+                    <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                        About TraceNet
+                    </h2>
+                    <p class="mt-3 text-lg text-gray-600">
+                        TraceNet is a collective of cybersecurity professionals, researchers, and activists dedicated to leveraging open-source intelligence (OSINT) for humanitarian purposes.
+                    </p>
+                    <div class="mt-8">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Ethical OSINT</h3>
+                                <p class="mt-2 text-base text-gray-600">
+                                    We strictly adhere to ethical guidelines and legal frameworks when conducting digital investigations.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Collaborative Approach</h3>
+                                <p class="mt-2 text-base text-gray-600">
+                                    Our team works collaboratively with law enforcement, NGOs, and families to maximize the impact of our work.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Tech-Driven Solutions</h3>
+                                <极速赛车开奖直播p class="mt-2 text-base text-gray-600">
+                                    We develop and utilize cutting-edge tools and methodologies to enhance our investigative capabilities.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div id="mission" class="py极速赛车开奖直播-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Our Mission
+                </h2>
+            </div>
+            <div class="mt-16">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="pt-6">
+                        <div class="flow-root bg-white rounded-lg shadow-lg px-6 pb-8 h-full card-hover transition duration-300 ease-in-out">
+                            <div class="-mt-6">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white mx-auto">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 text-center">Missing Persons</h3>
+                                <p class="mt-5 text-base text-gray-600">
+                                    We analyze digital footprints, social media activity, and other publicly available information to help locate missing individuals and provide closure to families.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-6">
+                        <div class="flow-root bg-white rounded-lg shadow-lg px-6 pb-8 h-full card-hover transition duration-300 ease-in-out">
+                            <div class="-mt-6">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white mx-auto">
+                                    <i class="fas fa-globe-europe"></i>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium极速赛车开奖直播 text-gray-900 text-center">Human Rights</h3>
+                                <p class="mt-5 text-base text-gray-600">
+                                    Our team supports human rights investigations by documenting violations, verifying evidence, and preserving digital information for accountability purposes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-6">
+                        <div class="flow-root bg-white rounded-lg shadow-lg px-6 pb-8 h-full card-hover transition duration-300 ease-in-out">
+                            <div class="-mt-6">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white mx-auto">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 text-center">Education</h3>
+                                <p class="mt-5 text-base text-gray-600">
+                                    We conduct training programs to build OSINT capacity among humanitarian organizations and law enforcement agencies.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="bg-gray-900">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8 lg:py-20">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                    Making an Impact Through Digital Investigations
+                </h2>
+                <p class="mt-3 text-xl text-gray-300 sm:mt-4">
+                    Since our founding, we've worked on cases across multiple continents
+                </p>
+            </div>
+            <div class="mt-10 text-center sm:max-w-3xl sm:mx-auto sm:grid sm:grid-cols-3 sm:gap-8">
+                <div>
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-gray-800 text-white">
+                        <i class="fas fa-user-friends text-2xl"></i>
+                    </div>
+                    <div class="mt-5">
+                        <p class="text-5xl font-extrabold text-white">150+</p>
+                        <p class="mt-1 text-base text-gray-300">Cases Investigated</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-gray-800 text-white">
+                        <i class="fas fa-globe-americas text-2xl"></i>
+                    </div>
+                    <div class="mt-5">
+                        <p class="text-5xl font-extrabold text-white">25+</p>
+                        <p class="mt-1 text-base text-gray-300">Countries</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto rounded-full bg-gray-800 text-white">
+                        <i class="fas fa-hands-helping text-2xl"></i>
+                    </div>
+                    <div class="mt-5">
+                        <p class="text-5xl font-extrabold text-white">50+</p>
+                        <p class="mt-1 text-base text-gray-300">Organizations Supported</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div id="team" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class极速赛车开奖直播="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-极速赛车开奖直播4xl">
+                    Our Team
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    A diverse group of professionals united by a common purpose
+                </p>
+            </div>
+            <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="pt-6">
+                    <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full text-center">
+                        <div class="-mt-6">
+                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-gray-900 text-white mx-auto">
+                                <i class="fas fa-user-secret text-3xl"></i>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Cybersecurity Experts</h3>
+                            <p class="mt-5 text-base text-gray-600">
+                                Digital forensics specialists with experience in law enforcement and intelligence.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6">
+                    <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full text-center">
+                        <div class="-mt-6">
+                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-gray-900 text-white mx-auto">
+                                <i class="fas fa-search-location text-3xl"></i>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">OSINT Researchers</h3>
+                            <p class="mt-5 text-base text-gray-600">
+                                Skilled investigators who specialize in finding and verifying digital information.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6">
+                    <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full text-center">
+                        <div class="-mt-6">
+                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-gray-900 text-white mx-auto">
+                                <i class="fas fa-balance-scale text-3xl"></i>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Human Rights Advocates</h3>
+                            <p class="mt-5 text-base text-gray-600">
+                                Professionals with deep understanding of international human rights law.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6">
+                    <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full text-center">
+                        <div class="-mt-6">
+                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-gray-900 text-white mx-auto">
+                                <i class="fas fa-code text-3xl"></i>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Tech Developers</h3>
+                            <p class="mt-5 text-base text-gray-600">
+                                Engineers who build custom tools to support our investigative work.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Volunteer Section -->
+    <div id="volunteer" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+                <div class="mt-12 lg:mt-0">
+                    <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                        Join Our Volunteer Network
+                    </h2>
+                    <p class="mt-3 text-lg text-gray-600">
+                        We're always looking for skilled professionals who want to contribute their expertise to humanitarian causes.
+                    </p>
+                    <div class="mt-8">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Flexible Commitment</h3>
+                                <p class="mt-2 text-base text-gray-600">
+                                    Contribute as much or as little time as you can spare. Every hour helps.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Remote Work</h3>
+                                <p class="mt-2 text-base text-gray-600">
+                                    Most of our work can be done remotely from anywhere in the world.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Training Provided</h3>
+                                <p class="mt-2 text-base text-gray-600">
+                                    We offer training to help volunteers develop specialized OSINT skills.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative lg:max-w-lg lg:mx-auto mt-10 lg:mt-0">
+                    <div class="relative bg-white rounded-lg shadow-lg overflow-hidden p-8">
+                        <h3 class="text-lg font-medium text-gray-900 mb-6">Volunteer Application</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" id="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900">
+                            </div>
+                            <div class="mb-4">
+                                <label for="skills" class="block text-sm font-medium text-gray-700">Skills/Expertise</label>
+                                <textarea id="skills" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py极速赛车开奖直播-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="availability" class="block text-sm font-medium text-gray-700">Weekly Availability (hours)</label>
+                                <select id="availability" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900">
+                                    <option>1-5 hours</option>
+                                    <option>5-10 hours</option>
+                                    <option>10-20 hours</option>
+                                    <option>20+ hours</option>
+                                </select>
+                            </div>
+                            <div class="mt-6">
+                                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus极速赛车开奖直播:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                                    Submit Application
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Contact Us
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    Have a case to discuss or questions about our work? Get in touch.
+                </p>
+            </div>
+            <div class="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
+                <div class="pt-6">
+                    <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full text-center">
+                        <div class="-mt-6">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white mx-auto">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Email</h3>
+                            <p class="mt-5 text-base text-gray-600">
+                                contact@tracenet.quest
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6">
+                    <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full text-center">
+                        <div class="-mt-6">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white mx-auto">
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Secure Drop</h3>
+                            <p class="mt-5 text-base text-gray-600">
+                                PGP Key: 0xABCDEF1234567890
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6">
+                    <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full text-center">
+                        <div class="-mt-6">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-gray-900 text-white mx-auto">
+                                <i class="fas fa-headset text-xl"></i>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Media Inquiries</h3>
+                            <p class="mt-5 text-base text-gray-600">
+                                media@tracenet.quest
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">About</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#about" class="text-base text-gray-300 hover:text-white">Our Story</a></li>
+                        <li><a href="#team" class="text-base text-gray-300 hover:text-white">Team</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Partners</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">OSINT Tools</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Research</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Training</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Ethics</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Connect</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Twitter</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-800 pt-8 flex flex-col items-center">
+                <div class="flex items-center space-x-2">
+                    <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 极速赛车开奖直播0 24 24">
+                        <path fill="currentColor" d="M12,4C9.79,4,8,5.79,8,8c0,2.21,1.79,4,4,4s4-1.79,4-4C16,5.79,14.21,4,12,4z M12,14c-4.42,0-8,1.79-8,4v2h16v-2C20,15.79,16.42,14,12,14z"/>
+                    </svg>
+                    <span class="text-white text-xl font-bold">TRACENET</span>
+                </div>
+                <p class="mt-4 text-base text-gray-400 text-center">
+                    &copy; 2025 TraceNet. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=iboselmi/tracenet" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
